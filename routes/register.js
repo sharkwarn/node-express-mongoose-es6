@@ -5,6 +5,6 @@ import controller from './../controller/register'
 
 const router = express.Router();
 
-router.get('/register',controller.send);
+router.post('/register',controller.send);
 
 export default router;

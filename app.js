@@ -9,25 +9,38 @@ import config from './config';
 import router from './routes';
 import user from './model/user'
 
+import bodyParser from 'body-parser';
+
+
 const app = Express();
-
-// user.create({name:'朱良灿',age:23,sex:'男',passWord:'123456789',phone:'17610888798'},(err)=>{
-//   if(err){
-//     console.log(`插入数据库失败！！！`);
-//     return;
-//   }
-//   console.log(`插入数据库成功！！！！`);
-// })
-
-// user.find((err,result)=>{
-//   if(err){
-//     console.log(err);
-//     return;
-//   }
-//   console.log(result);
-// })
 //使用cookie中间件；
 app.use(cookieParser());
+//使用post提交方式
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+
+//生成一个usermodel模板。。。。。
+// user.create({
+//   id:1,
+//   name:'朱良灿',
+//   age:23,
+//   sex:'男',
+//   password:'123',
+//   phone:'110',
+//   logo:'http://image48.360doc.com/DownloadImg/2011/12/2210/20211680_1.jpg',
+//   sign:'发财了!!!!',
+//   birthday:1500560627559
+// },(err)=>{
+//   if(err){
+//     console.log(`插入数据库出错！！！`)
+//   }
+//   console.log(`插入数据成功！！！！`)
+// })
+// parse application/json
+app.use(bodyParser.json())
+//静态文件资源
+app.use('/static', Express.static('public'));
 
 //定义请求的公共设置。
 app.all('*', (req, res, next) => {
@@ -44,26 +57,13 @@ app.all('*', (req, res, next) => {
 });
 
 router(app);
-
 //!!! 可能需要添加的功能。 
 
 
 
-app.get('/',(req,res)=>{
-  res.send(`hello world!!!`)
+app.all('*',(req,res)=>{
+  res.send(`404 页面没有找到！！！`)
 })
-
-// bookModel.create({
-//   name:'神雕侠侣',
-//   page:26859,
-//   price:'￥112.99'
-// },(err)=>{
-//   if(err){
-//     console.log(err);
-//     return;
-//   }
-//   console.log('插入数据成功！！！！')
-// })
 
 app.listen(config.port,(err)=>{
   if(err){
