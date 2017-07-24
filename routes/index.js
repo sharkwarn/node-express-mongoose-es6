@@ -1,4 +1,6 @@
-import register from './register' 
+import user from './user' ;
+import upload from './upload';
 export default app =>{
-  app.use('/user',register)
+  app.use('/user',user);
+  app.use('/upload',upload);
 }

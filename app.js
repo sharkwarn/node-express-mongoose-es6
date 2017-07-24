@@ -41,6 +41,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 //静态文件资源
 app.use('/static', Express.static('public'));
+app.use('/uploadfile', Express.static('uploadfile'));
 
 //定义请求的公共设置。
 app.all('*', (req, res, next) => {
