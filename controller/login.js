@@ -7,8 +7,8 @@ class login {
     this.checkUser = this.checkUser.bind(this);
   }
   checkUser(req,res){
-    const { id, password } = req.body;
-    user.find({'id':id},(err,result)=>{
+    const { uid, password } = req.body;
+    user.find({'uid':uid},(err,result)=>{
       if(err){
         res.send("登录失败！")
         return;
@@ -16,10 +16,16 @@ class login {
       console.log(result);
       if(result.length==0){
         res.send('帐号不存在!');
+        return;
       }else if(result.length > 1){
         res.send('帐号存在异常！');
+        return;
       }else if(result.length==1 &&  result[0].password == password){
-        res.send('登录成功')
+        res.send({
+          'success':true,
+          'data':result[0],
+        })
+        return;
       }
       res.send('登录失败！')
       return;

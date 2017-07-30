@@ -12,7 +12,11 @@ import user from './model/user'
 import bodyParser from 'body-parser';
 
 
-const app = Express();
+global.app = Express();
+
+//连接socket
+import './socket'
+
 //使用cookie中间件；
 app.use(cookieParser());
 //使用post提交方式
@@ -60,7 +64,11 @@ app.all('*', (req, res, next) => {
 router(app);
 //!!! 可能需要添加的功能。 
 
-
+app.get('/yes',(req,res)=>{
+  res.send({
+    'login':'true'
+  })
+})
 
 app.all('*',(req,res)=>{
   res.send(`404 页面没有找到！！！`)
