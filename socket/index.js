@@ -32,8 +32,6 @@ io.on('connection', function (socket) {
   
     //保存 socket  实例
     userClient[_query.uid]=socket;
-  }else{
-    userClient[_query.uid]=socket;
   }
   // user登录 想所有用户发送信息
 
@@ -54,6 +52,6 @@ io.on('connection', function (socket) {
       socket.emit('ptp','该用户不在线！！！');
       return;
     }
-    userClient[msg.uid].emit('ptp',msg);
+    userClient[msg.uid].emit('ptp',{'msg':msg,'time':new Date().getTime()});
   })
 });
